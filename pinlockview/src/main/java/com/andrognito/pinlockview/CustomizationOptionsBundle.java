@@ -1,5 +1,6 @@
 package com.andrognito.pinlockview;
 
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 
 /**
@@ -11,6 +12,7 @@ import android.graphics.drawable.Drawable;
 public class CustomizationOptionsBundle {
 
     private int textColor;
+    private ColorStateList colorStateList;
     private int textSize;
     private int buttonSize;
     private Drawable buttonBackgroundDrawable;
@@ -28,6 +30,14 @@ public class CustomizationOptionsBundle {
 
     public void setTextColor(int textColor) {
         this.textColor = textColor;
+    }
+
+    public ColorStateList getColorStateList() {
+        return colorStateList;
+    }
+
+    public void setColorStateList(ColorStateList colorStateList) {
+        this.colorStateList = colorStateList;
     }
 
     public int getTextSize() {

@@ -1,6 +1,7 @@
 package com.andrognito.pinlockview;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
@@ -24,6 +25,7 @@ public class PinLockView extends RecyclerView {
     private int mPinLength;
     private int mHorizontalSpacing, mVerticalSpacing;
     private int mTextColor, mDeleteButtonPressedColor;
+    private ColorStateList mColorStateList;
     private int mTextSize, mButtonSize, mDeleteButtonSize;
     private Drawable mButtonBackgroundDrawable;
     private Drawable mDeleteButtonDrawable;
@@ -144,6 +146,7 @@ public class PinLockView extends RecyclerView {
             mHorizontalSpacing = (int) typedArray.getDimension(R.styleable.PinLockView_keypadHorizontalSpacing, ResourceUtils.getDimensionInPx(getContext(), R.dimen.default_horizontal_spacing));
             mVerticalSpacing = (int) typedArray.getDimension(R.styleable.PinLockView_keypadVerticalSpacing, ResourceUtils.getDimensionInPx(getContext(), R.dimen.default_vertical_spacing));
             mTextColor = typedArray.getColor(R.styleable.PinLockView_keypadTextColor, ResourceUtils.getColor(getContext(), R.color.white));
+            mColorStateList = typedArray.getColorStateList(R.styleable.PinLockView_keypadTextColorList);
             mTextSize = (int) typedArray.getDimension(R.styleable.PinLockView_keypadTextSize, ResourceUtils.getDimensionInPx(getContext(), R.dimen.default_text_size));
             mButtonSize = (int) typedArray.getDimension(R.styleable.PinLockView_keypadButtonSize, ResourceUtils.getDimensionInPx(getContext(), R.dimen.default_button_size));
             mDeleteButtonSize = (int) typedArray.getDimension(R.styleable.PinLockView_keypadDeleteButtonSize, ResourceUtils.getDimensionInPx(getContext(), R.dimen.default_delete_button_size));
@@ -157,6 +160,7 @@ public class PinLockView extends RecyclerView {
 
         mCustomizationOptionsBundle = new CustomizationOptionsBundle();
         mCustomizationOptionsBundle.setTextColor(mTextColor);
+        mCustomizationOptionsBundle.setColorStateList(mColorStateList);
         mCustomizationOptionsBundle.setTextSize(mTextSize);
         mCustomizationOptionsBundle.setButtonSize(mButtonSize);
         mCustomizationOptionsBundle.setButtonBackgroundDrawable(mButtonBackgroundDrawable);
@@ -229,6 +233,12 @@ public class PinLockView extends RecyclerView {
     public void setTextColor(int textColor) {
         this.mTextColor = textColor;
         mCustomizationOptionsBundle.setTextColor(textColor);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    public void setTextColor(ColorStateList colorStateList) {
+        this.mColorStateList = colorStateList;
+        mCustomizationOptionsBundle.setColorStateList(colorStateList);
         mAdapter.notifyDataSetChanged();
     }
 

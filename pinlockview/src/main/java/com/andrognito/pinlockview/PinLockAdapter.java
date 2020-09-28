@@ -3,6 +3,7 @@ package com.andrognito.pinlockview;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -72,14 +73,18 @@ public class PinLockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
 
             if (mCustomizationOptionsBundle != null) {
-                holder.mNumberButton.setTextColor(mCustomizationOptionsBundle.getTextColor());
-                if (mCustomizationOptionsBundle.getButtonBackgroundDrawable() != null) {
-                    if (Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                        holder.mNumberButton.setBackgroundDrawable(
-                                mCustomizationOptionsBundle.getButtonBackgroundDrawable());
+                if(mCustomizationOptionsBundle.getColorStateList() != null) {
+                    holder.mNumberButton.setTextColor(mCustomizationOptionsBundle.getColorStateList());
+                } else {
+                    holder.mNumberButton.setTextColor(mCustomizationOptionsBundle.getTextColor());
+                }
+                if (mCustomizationOptionsBundle.getButtonBackgroundDrawable() != null
+                        && mCustomizationOptionsBundle.getButtonBackgroundDrawable().getConstantState() != null) {
+                    Drawable drawable = mCustomizationOptionsBundle.getButtonBackgroundDrawable().getConstantState().newDrawable();
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                        holder.mNumberButton.setBackgroundDrawable(drawable);
                     } else {
-                        holder.mNumberButton.setBackground(
-                                mCustomizationOptionsBundle.getButtonBackgroundDrawable());
+                        holder.mNumberButton.setBackground(drawable);
                     }
                 }
                 holder.mNumberButton.setTextSize(TypedValue.COMPLEX_UNIT_PX,
@@ -99,8 +104,6 @@ public class PinLockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 if (mCustomizationOptionsBundle.getDeleteButtonDrawable() != null) {
                     holder.mButtonImage.setImageDrawable(mCustomizationOptionsBundle.getDeleteButtonDrawable());
                 }
-                holder.mButtonImage.setColorFilter(mCustomizationOptionsBundle.getTextColor(),
-                        PorterDuff.Mode.SRC_ATOP);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                         mCustomizationOptionsBundle.getDeleteButtonSize(),
                         mCustomizationOptionsBundle.getDeleteButtonSize());
