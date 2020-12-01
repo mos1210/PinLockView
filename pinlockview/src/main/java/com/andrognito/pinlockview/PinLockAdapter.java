@@ -187,6 +187,11 @@ public class PinLockAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public NumberViewHolder(final View itemView) {
             super(itemView);
             mNumberButton = (Button) itemView.findViewById(R.id.button);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (mCustomizationOptionsBundle.getRemoveButtonShadow()) {
+                    mNumberButton.setStateListAnimator(null);
+                }
+            }
             mNumberButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

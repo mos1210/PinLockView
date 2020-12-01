@@ -20,6 +20,7 @@ public class CustomizationOptionsBundle {
     private int deleteButtonSize;
     private boolean showDeleteButton;
     private int deleteButtonPressesColor;
+    private boolean removeButtonShadow;
 
     public CustomizationOptionsBundle() {
     }
@@ -94,5 +95,13 @@ public class CustomizationOptionsBundle {
 
     public void setDeleteButtonPressesColor(int deleteButtonPressesColor) {
         this.deleteButtonPressesColor = deleteButtonPressesColor;
+    }
+
+    public boolean getRemoveButtonShadow() {
+        return removeButtonShadow;
+    }
+
+    public void setRemoveButtonShadow(boolean removeShadow) {
+        this.removeButtonShadow = removeShadow;
     }
 }
